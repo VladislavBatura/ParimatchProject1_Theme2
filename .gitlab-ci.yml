@@ -1,0 +1,22 @@
+image: mcr.microsoft.com/dotnet/sdk:6.0
+
+variables:
+  # 1) Name of directory where restore and build objects are stored.
+  OBJECTS_DIRECTORY: 'obj'
+  # 2) A relative path to the source code from project repository root.
+  SOURCE_CODE_PATH: '*/'
+
+cache:
+  key: "$CI_JOB_STAGE-$CI_COMMIT_REF_SLUG"
+  paths:
+    - '$SOURCE_CODE_PATH$OBJECTS_DIRECTORY/project.assets.json'
+    - '$SOURCE_CODE_PATH$OBJECTS_DIRECTORY/*.csproj.nuget.*'
+  policy: pull-push
+  
+build:
+  stage: build
+  script:
+    - 'dotnet build --no-restore'
+  tags:
+    - docker-shared
+    
