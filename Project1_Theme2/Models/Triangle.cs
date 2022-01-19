@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Project1_Theme2.Models;
+﻿namespace Project1_Theme2.Models;
 
 public class Triangle : Figure
 {

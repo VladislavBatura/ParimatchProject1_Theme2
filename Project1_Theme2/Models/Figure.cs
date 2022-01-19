@@ -2,6 +2,7 @@
 
 public abstract class Figure
 {
+    public int Layer { get; set; }
     public abstract double GetPerimeter();
     public abstract double GetArea();
 }
