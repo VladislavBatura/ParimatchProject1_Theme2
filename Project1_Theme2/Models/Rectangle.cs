@@ -5,11 +5,14 @@ public class Rectangle : Figure
     public double Width { get; }
     public double Height { get; }
     public Dictionary<string, (int, int)> Location { get; set; }
+    public bool IsFill { get; set; }
 
-    public Rectangle(double width, double height)
+    public Rectangle(double width, double height, bool isFill)
     {
         Width = width;
         Height = height;
+        IsFill = isFill;
+        Location = new();
     }
 
     public override double GetPerimeter()

@@ -16,13 +16,14 @@ public static class Menu
 
     private static void MenuNavigationWrite()
     {
+        Console.WriteLine("Menu:");
         Console.WriteLine("1 - Draw figures");
         Console.WriteLine("2 - Move figures");
         Console.WriteLine("3 - Help");
         Console.WriteLine("Q - Exit");
     }
 
-    public static int MenuShow()
+    public static void MenuShow()
     {
         while (true)
         {
@@ -33,22 +34,22 @@ public static class Menu
                 switch (key.Key)
                 {
                     case ConsoleKey.D1:
-                        _ = DrawHandler();
+                        DrawHandler();
                         break;
                     case ConsoleKey.D2:
-                        _ = MoveHandler();
+                        MoveHandler();
                         break;
                     case ConsoleKey.D3:
                         HelpShow();
                         break;
                     case ConsoleKey.Q:
-                        return 0;
+                        return;
                 }
             }
         }
     }
 
-    private static int DrawHandler()
+    private static void DrawHandler()
     {
         Console.WriteLine("To draw a figure, choose which do you want: ");
         Console.WriteLine("1 - Line;");
@@ -63,26 +64,26 @@ public static class Menu
             switch (key.Key)
             {
                 case ConsoleKey.D1:
-                    AddFigure(1, Draw.DrawLine());
-                    return 0;
+                    AddFigure(1, Draw.DrawNewLine());
+                    return;
                 case ConsoleKey.D2:
-                    Draw.DrawRectangle();
-                    break;
+                    AddFigure(2, Draw.DrawNewRectangle());
+                    return;
                 case ConsoleKey.D3:
-                    Draw.DrawTriangle();
-                    break;
+                    Draw.DrawNewTriangle();
+                    return;
                 case ConsoleKey.D4:
-                    Draw.DrawCircle();
-                    break;
+                    AddFigure(4, Draw.DrawNewCircle());
+                    return;
                 case ConsoleKey.Q:
-                    return 0;
+                    return;
                 default:
                     break;
             }
         }
     }
 
-    private static int MoveHandler()
+    private static void MoveHandler()
     {
         Console.WriteLine("Which figure you want to move?");
         Console.WriteLine("1 - Line;");
@@ -96,19 +97,15 @@ public static class Menu
             switch (key.Key)
             {
                 case ConsoleKey.D1:
-                    AddFigure(1, Draw.DrawLine());
-                    return 0;
+                    return;
                 case ConsoleKey.D2:
-                    Draw.DrawRectangle();
                     break;
                 case ConsoleKey.D3:
-                    Draw.DrawTriangle();
                     break;
                 case ConsoleKey.D4:
-                    Draw.DrawCircle();
                     break;
                 case ConsoleKey.Q:
-                    return 0;
+                    return;
                 default:
                     break;
             }
@@ -131,6 +128,11 @@ public static class Menu
     public static List<Figure> GetFigures(int figure)
     {
         return _figures[figure];
+    }
+
+    public static IDictionary<int, List<Figure>> GetFigures()
+    {
+        return _figures;
     }
 
     public static void AddLayer()
