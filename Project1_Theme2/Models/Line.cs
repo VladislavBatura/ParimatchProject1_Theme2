@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Project1_Theme2.Models;
+﻿namespace Project1_Theme2.Models;
 
 public class Line : Figure
 {
     public int LocationX { get; set; }
     public int LocationY { get; set; }
-    public double Length { get; }
+    public int Length { get; }
 
-    public Line(double length)
+    public Line(int length)
     {
         Length = length;
     }
