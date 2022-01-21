@@ -5,13 +5,17 @@ public class Triangle : Figure
     public double A { get; }
     public double B { get; }
     public double C { get; }
+    public int Height { get; }
     public Dictionary<string, (int, int)> Location { get; set; }
+    public bool IsFill { get; set; }
 
-    public Triangle(double a, double b, double c)
+    public Triangle(double a, double b, double c, int height, bool isFill)
     {
         A = a;
         B = b;
         C = c;
+        Height = height;
+        IsFill = isFill;
     }
 
     public override double GetPerimeter()
