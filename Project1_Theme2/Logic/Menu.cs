@@ -23,7 +23,8 @@ public static class Menu
         Console.WriteLine("1 - Draw figures");
         Console.WriteLine("2 - Move figures");
         Console.WriteLine("3 - Sort figures");
-        Console.WriteLine("4 - Help");
+        Console.WriteLine("4 - Delete figures");
+        Console.WriteLine("5 - Help");
         Console.WriteLine("Q - Exit");
     }
 
@@ -47,6 +48,9 @@ public static class Menu
                         SortHandler();
                         break;
                     case ConsoleKey.D4:
+                        DeleteHandler();
+                        break;
+                    case ConsoleKey.D5:
                         HelpShow();
                         break;
                     case ConsoleKey.Q:
@@ -155,6 +159,66 @@ public static class Menu
         return 0;
     }
 
+    private static void DeleteHandler()
+    {
+        Console.WriteLine("Which figure you want to delete?");
+        Console.WriteLine("1 - Line;");
+        Console.WriteLine("2 - Rectangle;");
+        Console.WriteLine("3 - Triangle;");
+        Console.WriteLine("4 - Circle;");
+        Console.WriteLine("Q - Exit");
+        while (true)
+        {
+            var key = Console.ReadKey(true);
+            switch (key.Key)
+            {
+                case ConsoleKey.D1:
+                    if (ChooseWhichToDelete(GetFigures(1), 1) == -1)
+                    {
+                        break;
+                    }
+                    return;
+                case ConsoleKey.D2:
+                    if (ChooseWhichToDelete(GetFigures(2), 2) == -1)
+                    {
+                        break;
+                    }
+                    return;
+                case ConsoleKey.D3:
+                    if (ChooseWhichToDelete(GetFigures(3), 3) == -1)
+                    {
+                        break;
+                    }
+                    return;
+                case ConsoleKey.D4:
+                    if (ChooseWhichToDelete(GetFigures(4), 4) == -1)
+                    {
+                        break;
+                    }
+                    return;
+                case ConsoleKey.Q:
+                    return;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private static int ChooseWhichToDelete(List<Figure> figures, int figureType)
+    {
+        if (!figures.Any())
+        {
+            Console.WriteLine("Sorry, you don't have any figure of that type. Choose another type");
+            return -1;
+        }
+
+        Console.WriteLine($"You have {figures.Count} figures of {figures.FirstOrDefault()!.GetType().Name}");
+        Console.WriteLine("Select which one you want to delete: ");
+        var figure = IntTryParse(figures.Count);
+        RemoveFigure(figureType, figure - 1);
+        return 0;
+    }
+
     private static void HelpShow()
     {
         Console.WriteLine("Hello! It is drawing application called \"PaintLikeAPro\"");
@@ -162,6 +226,7 @@ public static class Menu
         Console.WriteLine("First of all, you can draw here. Obviusly, right? But you can draw only figures of certain type.");
         Console.WriteLine("You can check them in \"Draw\" section of main menu");
         Console.WriteLine("Also, you can move figures, and change layer they represents.");
+        Console.WriteLine("You can sort figures by perimeter or square");
     }
 
     private static void SortHandler()
@@ -222,6 +287,11 @@ public static class Menu
     {
         _figures[figureType].RemoveAt(figureIndex);
         AddFigure(figureType, figure);
+    }
+
+    public static void RemoveFigure(int figureType, int figureIndex)
+    {
+        _figures[figureType].RemoveAt(figureIndex);
     }
 
     public static void AddLayer()
