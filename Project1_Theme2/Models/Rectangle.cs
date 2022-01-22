@@ -2,17 +2,23 @@
 
 public class Rectangle : Figure
 {
-    public double Width { get; }
-    public double Height { get; }
-    public Dictionary<string, (int, int)> Location { get; set; }
+    public int Width { get; }
+    public int Height { get; }
+    public Dictionary<string, int[]> Location { get; set; }
     public bool IsFill { get; set; }
 
-    public Rectangle(double width, double height, bool isFill)
+    public Rectangle(int width, int height, bool isFill)
     {
         Width = width;
         Height = height;
         IsFill = isFill;
-        Location = new();
+        Location = new()
+        {
+            ["A"] = new int[2],
+            ["B"] = new int[2],
+            ["C"] = new int[2],
+            ["D"] = new int[2]
+        };
     }
 
     public override double GetPerimeter()

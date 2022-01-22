@@ -2,30 +2,24 @@
 
 public class Triangle : Figure
 {
-    public double A { get; }
-    public double B { get; }
-    public double C { get; }
     public int Height { get; }
-    public Dictionary<string, (int, int)> Location { get; set; }
+    public int LocationX { get; set; }
+    public int LocationY { get; set; }
     public bool IsFill { get; set; }
 
-    public Triangle(double a, double b, double c, int height, bool isFill)
+    public Triangle(int height, bool isFill)
     {
-        A = a;
-        B = b;
-        C = c;
         Height = height;
         IsFill = isFill;
     }
 
     public override double GetPerimeter()
     {
-        return A + B + C;
+        return 0;
     }
 
     public override double GetArea()
     {
-        var p = (A + B + C) / 2;
-        return Math.Sqrt(p * (p - A) * (p - B) * (p - C));
+        return 0;
     }
 }
