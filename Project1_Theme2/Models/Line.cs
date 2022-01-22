@@ -11,7 +11,7 @@ public class Line : Figure
         Length = length;
     }
 
-    public override double GetArea()
+    public override double GetSquare()
     {
         return 0;
     }

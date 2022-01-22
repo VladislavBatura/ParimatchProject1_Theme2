@@ -3,6 +3,7 @@
 public class Triangle : Figure
 {
     public int Height { get; }
+    public int Foundation { get; set; }
     public int LocationX { get; set; }
     public int LocationY { get; set; }
     public bool IsFill { get; set; }
@@ -15,11 +16,11 @@ public class Triangle : Figure
 
     public override double GetPerimeter()
     {
-        return 0;
+        return (Height * 2) + Foundation;
     }
 
-    public override double GetArea()
+    public override double GetSquare()
     {
-        return 0;
+        return 0.5d * Height * Foundation;
     }
 }

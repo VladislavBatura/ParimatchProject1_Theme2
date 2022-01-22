@@ -12,6 +12,9 @@ public static class Menu
         [3] = new List<Figure>(),
         [4] = new List<Figure>()
     };
+
+    private static List<Figure> _sortedListOfFigures = new();
+
     private static int _defaultLayer = 1;
 
     private static void MenuNavigationWrite()
@@ -19,7 +22,8 @@ public static class Menu
         Console.WriteLine("Menu:");
         Console.WriteLine("1 - Draw figures");
         Console.WriteLine("2 - Move figures");
-        Console.WriteLine("3 - Help");
+        Console.WriteLine("3 - Sort figures");
+        Console.WriteLine("4 - Help");
         Console.WriteLine("Q - Exit");
     }
 
@@ -40,6 +44,9 @@ public static class Menu
                         MoveHandler();
                         break;
                     case ConsoleKey.D3:
+                        SortHandler();
+                        break;
+                    case ConsoleKey.D4:
                         HelpShow();
                         break;
                     case ConsoleKey.Q:
@@ -156,6 +163,42 @@ public static class Menu
         Console.WriteLine("You can check them in \"Draw\" section of main menu");
         Console.WriteLine("Also, you can move figures, and change layer they represents.");
     }
+
+    private static void SortHandler()
+    {
+        var figures = GetFigures();
+
+        if (figures.Values.Count == 0)
+        {
+            return;
+        }
+
+        var listOrderedFigures = new List<Figure>();
+        foreach (var f in figures)
+        {
+            listOrderedFigures = listOrderedFigures.Union(f.Value).ToList();
+        }
+
+        if (!listOrderedFigures.Any())
+        {
+            Console.WriteLine("You currently doesn't have any figure yet. Try to create some before sorting them ;)");
+            return;
+        }
+
+        Sort.SortMethod(listOrderedFigures);
+    }
+
+    public static void ReplaceSortedList(List<Figure> figures)
+    {
+        _sortedListOfFigures.Clear();
+        _sortedListOfFigures = _sortedListOfFigures.Union(figures).ToList();
+    }
+
+    public static List<Figure> GetSortedList()
+    {
+        return _sortedListOfFigures;
+    }
+
     public static void AddFigure(int figure, Figure typeOfFigure)
     {
         _figures[figure].Add(typeOfFigure);

@@ -109,7 +109,8 @@ public class Draw
 
         var triangle = new Triangle(height, isFill)
         {
-            Layer = Menu.GetLayer()
+            Layer = Menu.GetLayer(),
+            Foundation = (height * 2) - 1
         };
         Menu.AddLayer();
 
@@ -266,8 +267,8 @@ public class Draw
             listOrderedFigures = listOrderedFigures.Union(f.Value).ToList();
         }
 
-        var i = listOrderedFigures.OrderBy(x => x.Layer).ToList();
-        foreach (var figure in i)
+        listOrderedFigures = listOrderedFigures.OrderBy(x => x.Layer).ToList();
+        foreach (var figure in listOrderedFigures)
         {
             switch (figure.GetType().Name)
             {
