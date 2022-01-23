@@ -83,16 +83,24 @@ public static class Menu
             switch (key.Key)
             {
                 case ConsoleKey.D1:
-                    AddFigure(1, Draw.DrawNewLine());
+                    var newFigure = Draw.DrawNewLine();
+                    AddFigure(1, newFigure);
+                    _sortedListOfFigures.Add(newFigure);
                     return;
                 case ConsoleKey.D2:
-                    AddFigure(2, Draw.DrawNewRectangle());
+                    var newFigure = Draw.DrawNewRectangle();
+                    AddFigure(2, newFigure);
+                    _sortedListOfFigures.Add(newFigure);
                     return;
                 case ConsoleKey.D3:
-                    AddFigure(3, Draw.DrawNewTriangle());
+                    var newFigure = Draw.DrawNewLine();
+                    AddFigure(1, newFigure);
+                    _sortedListOfFigures.Add(newFigure);
                     return;
                 case ConsoleKey.D4:
-                    AddFigure(4, Draw.DrawNewCircle());
+                    var newFigure = Draw.DrawNewLine();
+                    AddFigure(1, newFigure);
+                    _sortedListOfFigures.Add(newFigure);
                     return;
                 case ConsoleKey.Q:
                     return;
@@ -253,7 +261,7 @@ public static class Menu
                 {
                     case ConsoleKey.Y:
                         var newFigures = FileHandler.Load();
-                        _figures = newFigures;
+                        ReplaceSortedList(newFigures);
                         return;
                     case ConsoleKey.N:
                         return;

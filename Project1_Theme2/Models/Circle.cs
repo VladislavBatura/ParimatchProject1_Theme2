@@ -13,6 +13,14 @@ public class Circle : Figure
         Fill = whole;
     }
 
+    public Circle(double radius, bool whole, int locX, int locY)
+    {
+        Radius = radius;
+        Fill = whole;
+        LocationX = locX;
+        LocationY = locY;
+    }
+
     public override double GetPerimeter()
     {
         return Radius * 2 * Math.PI;

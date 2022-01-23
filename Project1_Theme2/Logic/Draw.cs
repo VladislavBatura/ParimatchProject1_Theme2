@@ -337,16 +337,25 @@ public class Draw
         Console.Clear();
         Background.DrawBackground();
         var figures = Menu.GetFigures();
+        var sortedList = Menu.GetSortedList();
 
-        if (figures.Values.Count == 0)
+        if (figures.Values.Count == 0 && !sortedList.Any())
         {
             return;
         }
 
         var listOrderedFigures = new List<Figure>();
-        foreach (var f in figures)
+
+        if (sortedList.Any())
         {
-            listOrderedFigures = listOrderedFigures.Union(f.Value).ToList();
+            listOrderedFigures = listOrderedFigures.Union(sortedList).ToList();
+        }
+        else if (figures.Values.Count != 0)
+        {
+            foreach (var f in figures)
+            {
+                listOrderedFigures = listOrderedFigures.Union(f.Value).ToList();
+            }
         }
 
         listOrderedFigures = listOrderedFigures.OrderBy(x => x.Layer).ToList();

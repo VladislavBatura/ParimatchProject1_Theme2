@@ -8,7 +8,9 @@ public static class FileHandler
 {
     private static readonly JsonSerializerOptions _options = new()
     {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        Converters = { new JsonHandler() },
+        WriteIndented = true
     };
 
     private const string FileName = "save.json";
@@ -20,14 +22,27 @@ public static class FileHandler
 
     public static void Save()
     {
-        var json = JsonSerializer.Serialize(Menu.GetFigures(), _options);
+        var figures = Menu.GetFigures();
+
+        if (figures.Values.Count == 0)
+        {
+            return;
+        }
+
+        var listOrderedFigures = new List<Figure>();
+        foreach (var f in figures)
+        {
+            listOrderedFigures = listOrderedFigures.Union(f.Value).ToList();
+        }
+
+        var json = JsonSerializer.Serialize(listOrderedFigures, _options);
         File.WriteAllText(FileName, json);
     }
 
-    public static Dictionary<int, List<Figure>> Load()
+    public static List<Figure> Load()
     {
         var json = File.ReadAllText(FileName);
-        var obj = JsonSerializer.Deserialize<Dictionary<int, List<Figure>>>(json, _options);
+        var obj = JsonSerializer.Deserialize<List<Figure>>(json, _options);
         return obj;
     }
 }
