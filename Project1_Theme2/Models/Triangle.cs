@@ -2,7 +2,7 @@
 
 public class Triangle : Figure
 {
-    public int Height { get; set; }
+    public int Height { get; }
     public int Foundation { get; set; }
     public int LocationX { get; set; }
     public int LocationY { get; set; }

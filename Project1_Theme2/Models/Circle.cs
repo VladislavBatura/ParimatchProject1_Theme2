@@ -4,7 +4,7 @@ public class Circle : Figure
 {
     public int LocationX { get; set; }
     public int LocationY { get; set; }
-    public double Radius { get; set; }
+    public double Radius { get; }
     public bool Fill { get; set; }
 
     public Circle(double radius, bool whole)

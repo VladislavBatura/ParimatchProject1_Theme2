@@ -24,8 +24,7 @@ public static class Menu
         Console.WriteLine("2 - Move figures");
         Console.WriteLine("3 - Sort figures");
         Console.WriteLine("4 - Delete figures");
-        Console.WriteLine("5 - Save/Load figures");
-        Console.WriteLine("6 - Help");
+        Console.WriteLine("5 - Help");
         Console.WriteLine("Q - Exit");
     }
 
@@ -52,9 +51,6 @@ public static class Menu
                         DeleteHandler();
                         break;
                     case ConsoleKey.D5:
-                        SaveLoadHandler();
-                        break;
-                    case ConsoleKey.D6:
                         HelpShow();
                         break;
                     case ConsoleKey.Q:
@@ -83,24 +79,16 @@ public static class Menu
             switch (key.Key)
             {
                 case ConsoleKey.D1:
-                    var newFigure = Draw.DrawNewLine();
-                    AddFigure(1, newFigure);
-                    _sortedListOfFigures.Add(newFigure);
+                    AddFigure(1, Draw.DrawNewLine());
                     return;
                 case ConsoleKey.D2:
-                    var newFigure = Draw.DrawNewRectangle();
-                    AddFigure(2, newFigure);
-                    _sortedListOfFigures.Add(newFigure);
+                    AddFigure(2, Draw.DrawNewRectangle());
                     return;
                 case ConsoleKey.D3:
-                    var newFigure = Draw.DrawNewLine();
-                    AddFigure(1, newFigure);
-                    _sortedListOfFigures.Add(newFigure);
+                    AddFigure(3, Draw.DrawNewTriangle());
                     return;
                 case ConsoleKey.D4:
-                    var newFigure = Draw.DrawNewLine();
-                    AddFigure(1, newFigure);
-                    _sortedListOfFigures.Add(newFigure);
+                    AddFigure(4, Draw.DrawNewCircle());
                     return;
                 case ConsoleKey.Q:
                     return;
@@ -229,69 +217,6 @@ public static class Menu
         var figure = IntTryParse(figures.Count);
         RemoveFigure(figureType, figure - 1);
         return 0;
-    }
-
-    private static void SaveLoadHandler()
-    {
-        var figures = GetFigures();
-        if (figures.Values.Count == 0)
-        {
-            return;
-        }
-
-        var listFigures = new List<Figure>();
-        foreach (var f in figures)
-        {
-            listFigures = listFigures.Union(f.Value).ToList();
-        }
-
-        if (!listFigures.Any())
-        {
-            if (!FileHandler.IsFileExist())
-            {
-                Console.WriteLine("You doesn't have any figure yet. And a save file too. Try to draw something first");
-                return;
-            }
-            Console.WriteLine("You doesn't have any figure yet. Want to load them? y/n");
-            Console.WriteLine("Q - exit");
-            while (true)
-            {
-                var key = Console.ReadKey(true);
-                switch (key.Key)
-                {
-                    case ConsoleKey.Y:
-                        var newFigures = FileHandler.Load();
-                        ReplaceSortedList(newFigures);
-                        return;
-                    case ConsoleKey.N:
-                        return;
-                    case ConsoleKey.Q:
-                        return;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        Console.WriteLine("Want to save your figures?");
-        Console.WriteLine("y/n");
-        Console.WriteLine("Q - exit");
-        while (true)
-        {
-            var key = Console.ReadKey(true);
-            switch (key.Key)
-            {
-                case ConsoleKey.Y:
-                    FileHandler.Save();
-                    return;
-                case ConsoleKey.N:
-                    return;
-                case ConsoleKey.Q:
-                    return;
-                default:
-                    break;
-            }
-        }
     }
 
     private static void HelpShow()
