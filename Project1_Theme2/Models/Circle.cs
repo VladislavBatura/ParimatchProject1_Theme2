@@ -18,7 +18,7 @@ public class Circle : Figure
         return Radius * 2 * Math.PI;
     }
 
-    public override double GetArea()
+    public override double GetSquare()
     {
         return Math.Pow(Radius, 2) * Math.PI;
     }

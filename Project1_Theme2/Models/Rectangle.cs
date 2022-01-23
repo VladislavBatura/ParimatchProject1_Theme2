@@ -26,7 +26,7 @@ public class Rectangle : Figure
         return (Width * 2) + (Height * 2);
     }
 
-    public override double GetArea()
+    public override double GetSquare()
     {
         return Width * Height;
     }
