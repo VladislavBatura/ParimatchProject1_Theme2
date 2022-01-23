@@ -29,6 +29,12 @@ public class Draw
         Console.SetCursorPosition(line.LocationX, line.LocationY);
 
         var end = Console.GetCursorPosition().Left + line.Length;
+
+        if (end >= Background.GetRightSideBorder())
+        {
+            end = Background.GetRightSideBorder() - 1;
+        }
+
         for (var i = Console.GetCursorPosition().Left; i < end; i++)
         {
             Console.Write(line.Layer);
@@ -75,6 +81,35 @@ public class Draw
 
     public static void DrawRectangle(Rectangle rectangle)
     {
+        if (rectangle.Width >= Background.GetRightSideBorder() - Background.GetLeftSideBorder())
+        {
+            foreach (var item in rectangle.Location)
+            {
+                if (item.Value[0] <= Background.GetRightSideBorder() / 2)
+                {
+                    item.Value[0] = Background.GetLeftSideBorder() + 1;
+                }
+                else
+                {
+                    item.Value[0] = Background.GetRightSideBorder() - 1;
+                }
+            }
+        }
+        else if (rectangle.Height >= Background.GetTopSideBorder() - Background.GetDownSideBorder())
+        {
+            foreach (var item in rectangle.Location)
+            {
+                if (item.Value[1] <= Background.GetDownSideBorder() / 2)
+                {
+                    item.Value[1] = Background.GetTopSideBorder() + 1;
+                }
+                else
+                {
+                    item.Value[1] = Background.GetDownSideBorder() - 1;
+                }
+            }
+        }
+
         Console.SetCursorPosition(rectangle.Location["A"][0], rectangle.Location["A"][1]);
 
         for (var i = Console.GetCursorPosition().Top; i <= rectangle.Location["D"][1]; i++)
@@ -134,6 +169,20 @@ public class Draw
         {
             for (var j = (i * 2) - 1; j > 0; j--)
             {
+                if (Console.GetCursorPosition().Left <= Background.GetLeftSideBorder())
+                {
+                    Console.SetCursorPosition(Background.GetLeftSideBorder() + 1, Console.GetCursorPosition().Top);
+                }
+                else if (Console.GetCursorPosition().Left >= Background.GetRightSideBorder())
+                {
+                    Console.SetCursorPosition(Background.GetRightSideBorder() - 1, Console.GetCursorPosition().Top);
+                }
+
+                if (Console.GetCursorPosition().Top >= Background.GetDownSideBorder())
+                {
+                    return;
+                }
+
                 if (triangle.IsFill)
                 {
                     Console.Write(triangle.Layer);
@@ -177,6 +226,20 @@ public class Draw
 
     public static void DrawCircle(Circle circle)
     {
+        if (circle.LocationX - (int)circle.Radius + 1 <= Background.GetLeftSideBorder())
+        {
+            if (circle.LocationY - (int)circle.Radius <= Background.GetTopSideBorder())
+            {
+                if (circle.LocationX - Background.GetLeftSideBorder() < circle.LocationY - Background.GetTopSideBorder())
+                {
+                    circle.Radius = circle.LocationX - Background.GetLeftSideBorder() + 1;
+                }
+                else
+                {
+                    circle.Radius = circle.LocationY - Background.GetTopSideBorder() + 1;
+                }
+            }
+        }
         Console.SetCursorPosition(circle.LocationX - (int)circle.Radius + 1, circle.LocationY - (int)circle.Radius);
 
         var radiusIn = circle.Radius - 0.4;
@@ -186,6 +249,25 @@ public class Draw
         {
             for (var x = -circle.Radius; x < radiusOut; x += 0.5)
             {
+
+                if (Console.GetCursorPosition().Left <= Background.GetLeftSideBorder())
+                {
+                    Console.SetCursorPosition(Background.GetLeftSideBorder() + 1, Console.GetCursorPosition().Top);
+                }
+                else if (Console.GetCursorPosition().Left >= Background.GetRightSideBorder())
+                {
+                    Console.SetCursorPosition(Background.GetRightSideBorder() - 1, Console.GetCursorPosition().Top);
+                }
+
+                if (Console.GetCursorPosition().Top >= Background.GetDownSideBorder())
+                {
+                    return;
+                }
+                else if (Console.GetCursorPosition().Top <= Background.GetTopSideBorder())
+                {
+                    Console.SetCursorPosition(Console.GetCursorPosition().Left, Background.GetTopSideBorder() + 1);
+                }
+
                 var value = (x * x) + (y * y);
                 if (value >= radiusIn * radiusIn && value <= radiusOut * radiusOut)
                 {
